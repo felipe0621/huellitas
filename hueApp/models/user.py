@@ -31,9 +31,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('Username', max_length=15, unique=True)
     password = models.CharField('Password', max_length=256)
     name = models.CharField('Name', max_length=30)
-    #idCard = models.CharField('IdCard', max_length=30)
-    #address = models.CharField('Address', max_length=150)
-    #phone = models.CharField('Phone', max_length=15)
+    idCard = models.CharField('IdCard', max_length=30)
+    address = models.CharField('Address', max_length=150)
+    phone = models.CharField('Phone', max_length=15)
     email = models.EmailField('Email', max_length=100)
     
     def save(self, **kwargs):

@@ -1,34 +1,40 @@
 from rest_framework import serializers
-from hueApp.models import Account, User
-from .accountSerializers import AccountSerializer
+from hueApp.models import MediosP, User
+from .mediosPSerializers import MediosPSerializer
 
 class UserSerializer(serializers.ModelSerializer):
-    account = AccountSerializer()
+    mediosP = MediosPSerializer()
     
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'name',  'email', 'account']
+        fields = ['id', 'username', 'password', 'name', 'idCard', 'address', 'phone' 'email', 'mediosP']
         #'idCard', 'address', 'phone',
         
         
     def create(self, validated_data):
-        accountData = validated_data.pop('account')
+        mediosPData = validated_data.pop('mediosP')
         userInstance = User.objects.create(**validated_data)
-        Account.objects.create(user=userInstance, **accountData)
+        MediosP.objects.create(user=userInstance, **mediosPData)
         return userInstance
     
     def to_representation(self, obj):
       user = User.objects.get(id=obj.id)
-      account = Account.objects.get(user=obj.id)
+      mediosP = MediosP.objects.get(user=obj.id)
       return{
           'id': user.id,
           'username': user.username,
           'name': user.name,
+          'idCard': user.idCard,
+          'address': user.address,
+          'phone': user.phone,        
           'email': user.email,
-          'account': {
-              'id': account.id,
-              'balance': account.balance,
-              'lastChangeDate': account.lastChangeDate,
-              'isActive': account.isActive
+          'mediosP': {
+              'id': mediosP.id,
+              'valorApagar': mediosP.valorApagar,
+              'efectivo': mediosP.efectivo,
+              'tarjeta_debito': mediosP.tarjeta_debito,
+              'tarjeta_credito': mediosP.tarjeta_credito,
+              'pse': mediosP.pse,
+              'isActive': mediosP.isActive
           }          
       }  
