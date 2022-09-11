@@ -7,8 +7,8 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'name', 'idCard', 'address', 'phone', 'email', 'mediosP']
-        #'idCard', 'address', 'phone',
+        fields = ['id', 'username', 'password', 'name', 'address', 'phone', 'email', 'mediosP']
+       #'idCard',
         
         
     def create(self, validated_data):
@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
           'id': user.id,
           'username': user.username,
           'name': user.name,
-          'idCard': user.idCard,
+          #'idCard': user.idCard,
           'address': user.address,
           'phone': user.phone,        
           'email': user.email,
